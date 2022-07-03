@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinta_film/common/constants.dart';
-import 'package:cinta_film/domain/entities/genre.dart';
+import 'package:cinta_film/common/utils.dart';
 import 'package:cinta_film/domain/entities/tvls/tvls.dart';
 import 'package:cinta_film/domain/entities/tvls/tvls_detail.dart';
 import 'package:cinta_film/presentasi/provider/tvls/tvls_detail_notifier.dart';
@@ -152,7 +152,7 @@ class DetailContent extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              _showGenres(tv.genres),
+                              aliranFilm(tv.genres),
                             ),
                             Text(
                               (tv.firstAirDate),
@@ -274,18 +274,5 @@ class DetailContent extends StatelessWidget {
         )
       ],
     );
-  }
-
-  String _showGenres(List<Genre> genres) {
-    String result = '';
-    for (var genre in genres) {
-      result += genre.name + ', ';
-    }
-
-    if (result.isEmpty) {
-      return result;
-    }
-
-    return result.substring(0, result.length - 2);
   }
 }

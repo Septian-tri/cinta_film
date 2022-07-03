@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinta_film/common/constants.dart';
-import 'package:cinta_film/domain/entities/genre.dart';
+import 'package:cinta_film/common/utils.dart';
 import 'package:cinta_film/domain/entities/film.dart';
 import 'package:cinta_film/domain/entities/movie_detail.dart';
 import 'package:cinta_film/presentasi/provider/movie_detail_notifier.dart';
@@ -156,10 +156,10 @@ class DetailContent extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              _showGenres(film.genres),
+                              aliranFilm(film.genres),
                             ),
                             Text(
-                              _showDuration(film.runtime),
+                              fromatDurasi(film.runtime),
                             ),
                             Row(
                               children: [
@@ -278,29 +278,5 @@ class DetailContent extends StatelessWidget {
         )
       ],
     );
-  }
-
-  String _showDuration(int runtime) {
-    final int hours = runtime ~/ 60;
-    final int minutes = runtime % 60;
-
-    if (hours > 0) {
-      return '${hours}h ${minutes}m';
-    } else {
-      return '${minutes}m';
-    }
-  }
-
-  String _showGenres(List<Genre> genres) {
-    String result = '';
-    for (var genre in genres) {
-      result += genre.name + ', ';
-    }
-
-    if (result.isEmpty) {
-      return result;
-    }
-
-    return result.substring(0, result.length - 2);
   }
 }

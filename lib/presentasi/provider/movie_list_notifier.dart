@@ -7,35 +7,32 @@ import 'package:flutter/material.dart';
 
 class MovieListNotifier extends ChangeNotifier {
   var _nowPlayingMovies = <Film>[];
-  List<Film> get nowPlayingMovies => _nowPlayingMovies;
-
-  RequestState _nowPlayingState = RequestState.Empty;
-  RequestState get nowPlayingState => _nowPlayingState;
-
   var _popularMovies = <Film>[];
-  List<Film> get popularMovies => _popularMovies;
-
-  RequestState _popularMoviesState = RequestState.Empty;
-  RequestState get popularMoviesState => _popularMoviesState;
-
   var _topRatedMovies = <Film>[];
-  List<Film> get topRatedMovies => _topRatedMovies;
 
-  RequestState _topRatedMoviesState = RequestState.Empty;
-  RequestState get topRatedMoviesState => _topRatedMoviesState;
+  final ClasFilmTayangSaatIni filmTayangSaatIni;
+  final ClassFilmTerPopuler getPopularMovies;
+  final ClassFilmRatingTerbaik ambilFilmRatingTerbaik;
 
   String _message = '';
   String get message => _message;
+
+  List<Film> get nowPlayingMovies => _nowPlayingMovies;
+  List<Film> get popularMovies => _popularMovies;
+  List<Film> get topRatedMovies => _topRatedMovies;
+
+  RequestState _nowPlayingState = RequestState.Empty;
+  RequestState get nowPlayingState => _nowPlayingState;
+  RequestState _popularMoviesState = RequestState.Empty;
+  RequestState get popularMoviesState => _popularMoviesState;
+  RequestState _topRatedMoviesState = RequestState.Empty;
+  RequestState get topRatedMoviesState => _topRatedMoviesState;
 
   MovieListNotifier({
     required this.filmTayangSaatIni,
     required this.getPopularMovies,
     required this.ambilFilmRatingTerbaik,
   });
-
-  final ClasFilmTayangSaatIni filmTayangSaatIni;
-  final ClassFilmTerPopuler getPopularMovies;
-  final ClassFilmRatingTerbaik ambilFilmRatingTerbaik;
 
   Future<void> ambilDataFilmTerPopuler() async {
     _popularMoviesState = RequestState.Loading;

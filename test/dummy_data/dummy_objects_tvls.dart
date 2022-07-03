@@ -1,5 +1,5 @@
 import 'package:cinta_film/data/models/tvls/tvls_table.dart';
-import 'package:cinta_film/domain/entities/genre.dart';
+import 'package:cinta_film/domain/entities/aliranFilm.dart';
 import 'package:cinta_film/domain/entities/tvls/tvls.dart';
 import 'package:cinta_film/domain/entities/tvls/tvls_detail.dart';
 
@@ -21,7 +21,7 @@ final testTvList = [testTv];
 
 final testTvDetail = TvlsDetail(
   backdropPath: 'backdropPath',
-  genres: [Genre(id: 1, name: 'Action')],
+  genres: [ClassAliranFilm(id: 1, name: 'Action')],
   id: 1,
   originalName: 'originalName',
   overview: 'overview',

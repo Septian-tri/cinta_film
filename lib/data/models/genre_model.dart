@@ -1,4 +1,4 @@
-import 'package:cinta_film/domain/entities/genre.dart';
+import 'package:cinta_film/domain/entities/aliranFilm.dart';
 import 'package:equatable/equatable.dart';
 
 class GenreModel extends Equatable {
@@ -20,8 +20,8 @@ class GenreModel extends Equatable {
         "name": name,
       };
 
-  Genre toEntity() {
-    return Genre(id: this.id, name: this.name);
+  ClassAliranFilm toEntity() {
+    return ClassAliranFilm(id: this.id, name: this.name);
   }
 
   @override

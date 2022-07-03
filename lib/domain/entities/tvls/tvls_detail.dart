@@ -1,8 +1,8 @@
-import 'package:cinta_film/domain/entities/genre.dart';
+import 'package:cinta_film/domain/entities/aliranFilm.dart';
 import 'package:equatable/equatable.dart';
 
 class TvlsDetail extends Equatable {
-  TvlsDetail({
+  const TvlsDetail({
     required this.backdropPath,
     required this.genres,
     required this.id,
@@ -16,7 +16,7 @@ class TvlsDetail extends Equatable {
   });
 
   final String? backdropPath;
-  final List<Genre> genres;
+  final List<ClassAliranFilm> genres;
   final int id;
   final String originalName;
   final String overview;

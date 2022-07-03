@@ -40,8 +40,8 @@ import 'package:cinta_film/presentasi/provider/tvls/tvls_detail_notifier.dart';
 import 'package:cinta_film/presentasi/provider/tvls/tvls_list_notifier.dart';
 import 'package:cinta_film/presentasi/provider/tvls/tvls_search_notifier.dart';
 import 'package:cinta_film/presentasi/provider/tvls/watchlist_tvls_notifier.dart';
-import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
+import 'package:cinta_film/common/ssl_pinning.dart';
 
 final locator = GetIt.instance;
 
@@ -142,13 +142,14 @@ void init() {
   locator.registerLazySingleton(() => ClassSimpanDaftarTontonTvls(locator()));
   locator.registerLazySingleton(() => ClassHapusDaftarTontonTvls(locator()));
   locator.registerLazySingleton(() => GetwatchlistTvls(locator()));
-  // repository
+
   locator.registerLazySingleton<RepositoryFilm>(
     () => RepositoryFilmImpl(
       remoteDataSource: locator(),
       localDataSource: locator(),
     ),
   );
+
   locator.registerLazySingleton<TvlsRepository>(
     () => TvlsRepositoryImpl(
       remoteDataSource: locator(),
@@ -156,7 +157,6 @@ void init() {
     ),
   );
 
-  // data sources
   locator.registerLazySingleton<MovieRemoteDataSource>(
       () => MovieRemoteDataSourceImpl(client: locator()));
   locator.registerLazySingleton<MovieLocalDataSource>(
@@ -172,5 +172,5 @@ void init() {
   locator.registerLazySingleton<DatabaseHelperTvls>(() => DatabaseHelperTvls());
 
   // external
-  locator.registerLazySingleton(() => http.Client());
+  locator.registerLazySingleton(() => ClassSSLPinning.client);
 }

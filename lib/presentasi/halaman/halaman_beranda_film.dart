@@ -12,9 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeMoviePage extends StatefulWidget {
+  static const ROUTE_NAME = '/home';
   @override
   _HomeMoviePageState createState() => _HomeMoviePageState();
-  static const ROUTE_NAME = '/home';
 }
 
 class _HomeMoviePageState extends State<HomeMoviePage> {

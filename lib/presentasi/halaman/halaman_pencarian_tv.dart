@@ -9,6 +9,7 @@ class SearchTvlsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cari = false;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -23,6 +24,7 @@ class SearchTvlsPage extends StatelessWidget {
           children: [
             TextField(
               onSubmitted: (query) {
+                cari = true;
                 Provider.of<TvlsSearchNotifier>(context, listen: false)
                     .cariSerialTv(query);
               },
@@ -32,13 +34,6 @@ class SearchTvlsPage extends StatelessWidget {
                 border: OutlineInputBorder(),
               ),
               textInputAction: TextInputAction.search,
-            ),
-            SizedBox(height: 16),
-            Center(
-              child: Text(
-                'Hasil Perncarian Serial TV',
-                style: TextStyle(fontSize: 20, color: Colors.blueAccent),
-              ),
             ),
             Consumer<TvlsSearchNotifier>(
               builder: (context, data, child) {
@@ -60,13 +55,18 @@ class SearchTvlsPage extends StatelessWidget {
                       ),
                     );
                   default:
-                    return Center(
-                      child: Text(
-                        'Tidak Ada Hasil Di Temukan',
-                        style:
-                            TextStyle(fontSize: 20, color: Colors.blueAccent),
-                      ),
-                    );
+                    if (cari) {
+                      cari = false;
+                      return Center(
+                        child: Text(
+                          'Upss..Maaf Film Belum Tersedia',
+                          style:
+                              TextStyle(fontSize: 20, color: Colors.blueAccent),
+                        ),
+                      );
+                    } else {
+                      return Center();
+                    }
                 }
               },
             ),

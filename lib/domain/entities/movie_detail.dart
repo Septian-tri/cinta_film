@@ -1,4 +1,4 @@
-import 'package:cinta_film/domain/entities/genre.dart';
+import 'package:cinta_film/domain/entities/aliranFilm.dart';
 import 'package:equatable/equatable.dart';
 
 class MovieDetail extends Equatable {
@@ -19,7 +19,7 @@ class MovieDetail extends Equatable {
 
   final bool adult;
   final String? backdropPath;
-  final List<Genre> genres;
+  final List<ClassAliranFilm> genres;
   final int id;
   final String originalTitle;
   final String overview;

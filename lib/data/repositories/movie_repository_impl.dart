@@ -24,6 +24,8 @@ class RepositoryFilmImpl implements RepositoryFilm {
     try {
       final result = await remoteDataSource.filmTayangSaatIni();
       return Right(result.map((model) => model.toEntity()).toList());
+    } on TlsException {
+      return Left(SslFailure('Certificate unvalid'));
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -36,6 +38,8 @@ class RepositoryFilmImpl implements RepositoryFilm {
     try {
       final result = await remoteDataSource.getMovieDetail(id);
       return Right(result.toEntity());
+    } on TlsException {
+      return Left(SslFailure('Certificate unvalid'));
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -48,6 +52,8 @@ class RepositoryFilmImpl implements RepositoryFilm {
     try {
       final result = await remoteDataSource.getMovieRecommendations(id);
       return Right(result.map((model) => model.toEntity()).toList());
+    } on TlsException {
+      return Left(SslFailure('Certificate unvalid'));
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -60,6 +66,8 @@ class RepositoryFilmImpl implements RepositoryFilm {
     try {
       final result = await remoteDataSource.ambilDataFilmTerPopuler();
       return Right(result.map((model) => model.toEntity()).toList());
+    } on TlsException {
+      return Left(SslFailure('Certificate unvalid'));
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -72,6 +80,8 @@ class RepositoryFilmImpl implements RepositoryFilm {
     try {
       final result = await remoteDataSource.ambilFilmRatingTerbaik();
       return Right(result.map((model) => model.toEntity()).toList());
+    } on TlsException {
+      return Left(SslFailure('Certificate unvalid'));
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -84,6 +94,8 @@ class RepositoryFilmImpl implements RepositoryFilm {
     try {
       final result = await remoteDataSource.cariFilm(query);
       return Right(result.map((model) => model.toEntity()).toList());
+    } on TlsException {
+      return Left(SslFailure('Certificate unvalid'));
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -97,6 +109,8 @@ class RepositoryFilmImpl implements RepositoryFilm {
       final result =
           await localDataSource.insertwatchlist(MovieTable.fromEntity(film));
       return Right(result);
+    } on TlsException {
+      return Left(SslFailure('Certificate unvalid'));
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));
     } catch (e) {

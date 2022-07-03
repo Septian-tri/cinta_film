@@ -1,5 +1,5 @@
 import 'package:cinta_film/data/models/movie_table.dart';
-import 'package:cinta_film/domain/entities/genre.dart';
+import 'package:cinta_film/domain/entities/aliranFilm.dart';
 import 'package:cinta_film/domain/entities/film.dart';
 import 'package:cinta_film/domain/entities/movie_detail.dart';
 
@@ -25,7 +25,7 @@ final testMovieList = [testMovie];
 final testMovieDetail = MovieDetail(
   adult: false,
   backdropPath: 'backdropPath',
-  genres: [Genre(id: 1, name: 'Action')],
+  genres: [ClassAliranFilm(id: 1, name: 'Action')],
   id: 1,
   originalTitle: 'originalTitle',
   overview: 'overview',

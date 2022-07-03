@@ -9,6 +9,7 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cari = false;
     return Scaffold(
       appBar: AppBar(
         title: Text('Search'),
@@ -20,6 +21,7 @@ class SearchPage extends StatelessWidget {
           children: [
             TextField(
               onSubmitted: (query) {
+                cari = true;
                 Provider.of<MovieSearchNotifier>(context, listen: false)
                     .fetchMovieSearch(query);
               },
@@ -29,13 +31,6 @@ class SearchPage extends StatelessWidget {
                 border: OutlineInputBorder(),
               ),
               textInputAction: TextInputAction.search,
-            ),
-            SizedBox(height: 16),
-            Center(
-              child: Text(
-                'Hasil Perncarian Film Kamu',
-                style: TextStyle(fontSize: 20, color: Colors.blueAccent),
-              ),
             ),
             Consumer<MovieSearchNotifier>(
               builder: (context, data, child) {
@@ -57,9 +52,17 @@ class SearchPage extends StatelessWidget {
                       ),
                     );
                   default:
-                    return Expanded(
-                      child: Container(),
-                    );
+                    if (cari) {
+                      return Center(
+                        child: Text(
+                          'Upss..Maaf Film Belum Tersedia',
+                          style:
+                              TextStyle(fontSize: 20, color: Colors.blueAccent),
+                        ),
+                      );
+                    } else {
+                      return Center();
+                    }
                 }
               },
             ),
