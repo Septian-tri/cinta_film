@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:dartz/dartz.dart';
+
 import 'common/ssl_pinning.dart';
 import 'package:cinta_film/common/utils.dart';
 import 'package:cinta_film/presentasi/halaman/halaman_tentang_kami.dart';
@@ -51,9 +55,15 @@ import 'package:cinta_film/presentasi/provider/tvls/watchlist_tvls_notifier.dart
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
-  await ClassSSLPinning.init();
+  ClassSSLPinning.init();
   inject.init();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+        apiKey: "AIzaSyCXGH8lUloztAkzvVMjjA18mYQDVXCKbWI",
+        appId: "1:925796919669:android:f8357f53f32437a1fc4b3c",
+        messagingSenderId: "925796919669",
+        projectId: "cinta-film"),
+  );
 
   runApp(MyApp());
 }
@@ -61,49 +71,88 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // return MultiProvider(
+    //   providers: [
+    //     BlocProvider(
+    //       create: (_) => inject.locator<MovieDetailBloc>(),
+    //     ),
+    //     BlocProvider(
+    //       create: (_) => inject.locator<MoviePopularBloc>(),
+    //     ),
+    //     BlocProvider(
+    //       create: (_) => inject.locator<MovieRecommendationBloc>(),
+    //     ),
+    //     BlocProvider(
+    //       create: (_) => inject.locator<MovieSearchBloc>(),
+    //     ),
+    //     BlocProvider(
+    //       create: (_) => inject.locator<MovieTopRatedBloc>(),
+    //     ),
+    //     BlocProvider(
+    //       create: (_) => inject.locator<MovieNowPlayingBloc>(),
+    //     ),
+    //     BlocProvider(
+    //       create: (_) => inject.locator<MovieWatchlistBloc>(),
+    //     ),
+    //     BlocProvider(
+    //       create: (_) => inject.locator<TvseriesDetailBloc>(),
+    //     ),
+    //     BlocProvider(
+    //       create: (_) => inject.locator<TvseriesRecommendationsBloc>(),
+    //     ),
+    //     BlocProvider(
+    //       create: (_) => inject.locator<TvseriesSearchBloc>(),
+    //     ),
+    //     BlocProvider(
+    //       create: (_) => inject.locator<PopularTvseriesBloc>(),
+    //     ),
+    //     BlocProvider(
+    //       create: (_) => inject.locator<TopRatedTvseriesBloc>(),
+    //     ),
+    //     BlocProvider(
+    //       create: (_) => inject.locator<OnTheAirTvseriesBloc>(),
+    //     ),
+    //     BlocProvider(
+    //       create: (_) => inject.locator<WatchlistTvseriesBloc>(),
+    //     ),
+    //   ],
     return MultiProvider(
       providers: [
-        BlocProvider(
-          create: (_) => inject.locator<MovieDetailBloc>(),
+        ChangeNotifierProvider(
+          create: (_) => inject.locator<MovieListNotifier>(),
         ),
-        BlocProvider(
-          create: (_) => inject.locator<MoviePopularBloc>(),
+        ChangeNotifierProvider(
+          create: (_) => inject.locator<MovieDetailNotifier>(),
         ),
-        BlocProvider(
-          create: (_) => inject.locator<MovieRecommendationBloc>(),
+        ChangeNotifierProvider(
+          create: (_) => inject.locator<MovieSearchNotifier>(),
         ),
-        BlocProvider(
-          create: (_) => inject.locator<MovieSearchBloc>(),
+        ChangeNotifierProvider(
+          create: (_) => inject.locator<TopRatedMoviesNotifier>(),
         ),
-        BlocProvider(
-          create: (_) => inject.locator<MovieTopRatedBloc>(),
+        ChangeNotifierProvider(
+          create: (_) => inject.locator<NotifikasiFilmTerPopuler>(),
         ),
-        BlocProvider(
-          create: (_) => inject.locator<MovieNowPlayingBloc>(),
+        ChangeNotifierProvider(
+          create: (_) => inject.locator<NotifikasiDaftarTontonFilm>(),
         ),
-        BlocProvider(
-          create: (_) => inject.locator<MovieWatchlistBloc>(),
+        ChangeNotifierProvider(
+          create: (_) => inject.locator<TvlsListNotifier>(),
         ),
-        BlocProvider(
-          create: (_) => inject.locator<TvseriesDetailBloc>(),
+        ChangeNotifierProvider(
+          create: (_) => inject.locator<TvlsDetailNotifier>(),
         ),
-        BlocProvider(
-          create: (_) => inject.locator<TvseriesRecommendationsBloc>(),
+        ChangeNotifierProvider(
+          create: (_) => inject.locator<TvlsSearchNotifier>(),
         ),
-        BlocProvider(
-          create: (_) => inject.locator<TvseriesSearchBloc>(),
+        ChangeNotifierProvider(
+          create: (_) => inject.locator<TopRatedTvlsNotifier>(),
         ),
-        BlocProvider(
-          create: (_) => inject.locator<PopularTvseriesBloc>(),
+        ChangeNotifierProvider(
+          create: (_) => inject.locator<PopularTvlsNotifier>(),
         ),
-        BlocProvider(
-          create: (_) => inject.locator<TopRatedTvseriesBloc>(),
-        ),
-        BlocProvider(
-          create: (_) => inject.locator<OnTheAirTvseriesBloc>(),
-        ),
-        BlocProvider(
-          create: (_) => inject.locator<WatchlistTvseriesBloc>(),
+        ChangeNotifierProvider(
+          create: (_) => inject.locator<WatchlistTvlsNotifier>(),
         ),
       ],
       child: MaterialApp(
