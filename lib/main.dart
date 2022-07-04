@@ -1,7 +1,4 @@
-import 'dart:developer';
-
-import 'package:dartz/dartz.dart';
-
+import 'dart:async';
 import 'common/ssl_pinning.dart';
 import 'package:cinta_film/common/utils.dart';
 import 'package:cinta_film/presentasi/halaman/halaman_tentang_kami.dart';
@@ -18,22 +15,23 @@ import 'package:cinta_film/presentasi/halaman/halaman_pencarian_tv.dart';
 import 'package:cinta_film/presentasi/halaman/halaman_list_film_rating_terbaik.dart';
 import 'package:cinta_film/presentasi/halaman/halaman_list_tv_rating_terbaik.dart';
 import 'package:cinta_film/presentasi/halaman/halaman_detail_tv.dart';
-import 'package:cinta_film/presentasi/bloc/film_daftar_tonton_bloc/movie_watchlist_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/film_detail_bloc/movie_detail_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/film_pencarian_bloc/movie_search_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/film_rating_terbaik_bloc/movie_top_rated_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/film_rekomendasi_bloc/movie_recommendation_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/film_saat_ini_tayang_bloc/movie_now_playing_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/film_terpopuler_bloc/movie_popular_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/serial_tv_daftar_tonton_bloc/watchlist_tvseries_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/serial_tv_detail_bloc/tvseries_detail_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/serial_tv_pencarian_bloc/tvseries_search_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/serial_tv_rating_terbaik_bloc/top_rated_tvseries_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/serial_tv_rekomendasi_bloc/tvseries_recommendations_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/serial_tv_saat_ini_tayang_bloc/on_the_air_tvseries_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/serial_tv_terpopuler_bloc/popular_tvseries_bloc.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+// import 'package:cinta_film/presentasi/bloc/film_daftar_tonton_bloc/movie_watchlist_bloc.dart';
+// import 'package:cinta_film/presentasi/bloc/film_detail_bloc/movie_detail_bloc.dart';
+// import 'package:cinta_film/presentasi/bloc/film_pencarian_bloc/movie_search_bloc.dart';
+// import 'package:cinta_film/presentasi/bloc/film_rating_terbaik_bloc/movie_top_rated_bloc.dart';
+// import 'package:cinta_film/presentasi/bloc/film_rekomendasi_bloc/movie_recommendation_bloc.dart';
+// import 'package:cinta_film/presentasi/bloc/film_saat_ini_tayang_bloc/movie_now_playing_bloc.dart';
+// import 'package:cinta_film/presentasi/bloc/film_terpopuler_bloc/movie_popular_bloc.dart';
+// import 'package:cinta_film/presentasi/bloc/serial_tv_daftar_tonton_bloc/watchlist_tvseries_bloc.dart';
+// import 'package:cinta_film/presentasi/bloc/serial_tv_detail_bloc/tvseries_detail_bloc.dart';
+// import 'package:cinta_film/presentasi/bloc/serial_tv_pencarian_bloc/tvseries_search_bloc.dart';
+// import 'package:cinta_film/presentasi/bloc/serial_tv_rating_terbaik_bloc/top_rated_tvseries_bloc.dart';
+// import 'package:cinta_film/presentasi/bloc/serial_tv_rekomendasi_bloc/tvseries_recommendations_bloc.dart';
+// import 'package:cinta_film/presentasi/bloc/serial_tv_saat_ini_tayang_bloc/on_the_air_tvseries_bloc.dart';
+// import 'package:cinta_film/presentasi/bloc/serial_tv_terpopuler_bloc/popular_tvseries_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -53,13 +51,18 @@ import 'package:cinta_film/presentasi/provider/tvls/tvls_search_notifier.dart';
 import 'package:cinta_film/presentasi/provider/tvls/watchlist_tvls_notifier.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
-  ClassSSLPinning.init();
-  inject.init();
+    await Firebase.initializeApp();
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+    ClassSSLPinning.init();
+    inject.init();
 
-  runApp(MyApp());
+    runApp(MyApp());
+  },
+      (error, stack) =>
+          FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
 }
 
 class MyApp extends StatelessWidget {

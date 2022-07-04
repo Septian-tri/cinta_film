@@ -60,6 +60,11 @@ class ClassDrawerKiri {
             leading: Icon(Icons.info_outline),
             title: Text('Tentang Kami'),
           ),
+          //error test
+          // TextButton(
+          //   onPressed: () => throw Exception(),
+          //   child: const Text("Throw Test Exception"),
+          // ),
         ],
       ),
     );
