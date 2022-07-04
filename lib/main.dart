@@ -55,15 +55,9 @@ import 'package:cinta_film/presentasi/provider/tvls/watchlist_tvls_notifier.dart
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await Firebase.initializeApp();
   ClassSSLPinning.init();
   inject.init();
-  await Firebase.initializeApp(
-    options: FirebaseOptions(
-        apiKey: "AIzaSyCXGH8lUloztAkzvVMjjA18mYQDVXCKbWI",
-        appId: "1:925796919669:android:f8357f53f32437a1fc4b3c",
-        messagingSenderId: "925796919669",
-        projectId: "cinta-film"),
-  );
 
   runApp(MyApp());
 }

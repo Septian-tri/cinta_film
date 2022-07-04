@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "925796919669",
-    "project_id": "cinta-film",
-    "storage_bucket": "cinta-film.appspot.com"
+    "project_number": "571592744450",
+    "project_id": "cinta-film-analytic",
+    "storage_bucket": "cinta-film-analytic.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:925796919669:android:f8357f53f32437a1fc4b3c",
+        "mobilesdk_app_id": "1:571592744450:android:1337f4cffd5817a528d11b",
         "android_client_info": {
           "package_name": "com.example.cinta_film"
         }
       },
       "oauth_client": [
         {
-          "client_id": "925796919669-4958enjn0ni095kcbjpekuaiek54cmp4.apps.googleusercontent.com",
+          "client_id": "571592744450-qbkf06kn7klv18d49ranb0a6f3so6nao.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCXGH8lUloztAkzvVMjjA18mYQDVXCKbWI"
+          "current_key": "AIzaSyA_AK1kpVc_VK8wqzi52QfZ1ncmrp9t4oY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "925796919669-4958enjn0ni095kcbjpekuaiek54cmp4.apps.googleusercontent.com",
+              "client_id": "571592744450-qbkf06kn7klv18d49ranb0a6f3so6nao.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
