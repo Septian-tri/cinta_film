@@ -14,9 +14,9 @@ class MoviePopularBloc extends Bloc<MoviePopularEvent, MoviePopularState> {
     on<MoviePopularGetEvent>((event, emit) async {
       emit(MoviePopularLoading());
 
-      final result = await getPopularMovies.execute();
+      final film = await getPopularMovies.execute();
 
-      result.fold(
+      film.fold(
         (failure) {
           emit(MoviePopularError(failure.message));
         },

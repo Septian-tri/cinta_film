@@ -61,15 +61,10 @@ class _HomeTvlsPageState extends State<HomeTvlsPage> {
                 final state = data.serialTvSaatIniDiPutarState;
                 switch (state) {
                   case RequestState.Loading:
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ],
-                      mainAxisSize: MainAxisSize.max,
+                    return Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
                     );
                   case RequestState.Loaded:
                     return TvList(data.serialTvSaatIniDiPutar);
@@ -103,15 +98,10 @@ class _HomeTvlsPageState extends State<HomeTvlsPage> {
                 final state = data.popularTvState;
                 switch (state) {
                   case RequestState.Loading:
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ],
-                      mainAxisSize: MainAxisSize.max,
+                    return Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
                     );
                   case RequestState.Loaded:
                     return TvList(data.popularTv);
@@ -145,15 +135,10 @@ class _HomeTvlsPageState extends State<HomeTvlsPage> {
                 final state = data.serialTvRatingTerbaikState;
                 switch (state) {
                   case RequestState.Loading:
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ],
-                      mainAxisSize: MainAxisSize.max,
+                    return Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
                     );
                   case RequestState.Loaded:
                     return TvList(data.serialTvRatingTerbaik);
@@ -234,8 +219,11 @@ class TvList extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 child: CachedNetworkImage(
                   imageUrl: '$BASE_IMAGE_URL${tvs.posterPath}',
-                  placeholder: (context, url) => Center(
-                    child: CircularProgressIndicator(),
+                  placeholder: (context, url) => 
+                  Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
                   ),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),

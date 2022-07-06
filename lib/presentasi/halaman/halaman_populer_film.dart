@@ -1,8 +1,7 @@
-import 'package:cinta_film/common/state_enum.dart';
-import 'package:cinta_film/presentasi/provider/get_data_film_terpopuler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cinta_film/presentasi/widgets/movie_card_list.dart';
+import 'package:cinta_film/presentasi/bloc/film_terpopuler_bloc/movie_popular_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class PopularMoviesPage extends StatefulWidget {
   static const ROUTE_NAME = '/popular-film';
@@ -15,9 +14,9 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<NotifikasiFilmTerPopuler>(context, listen: false)
-            .ambilDataFilmTerPopuler());
+    Future.microtask(() {
+      context.read<MoviePopularBloc>().add(MoviePopularGetEvent());
+    });
   }
 
   @override
@@ -28,30 +27,31 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<NotifikasiFilmTerPopuler>(
-          builder: (context, data, child) {
-            switch (data.state) {
-              case RequestState.Loading:
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              case RequestState.Loaded:
+        child: BlocBuilder<MoviePopularBloc, MoviePopularState>(
+          builder: (context, state) {
+            if(state is MoviePopularLoading){
+                 return Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
+                    );
+              }else if(state is MoviePopularLoaded){
                 return ListView.builder(
                   itemBuilder: (context, index) {
-                    final film = data.film[index];
-                    return MovieCard(film);
+                    final filmData = state.result[index];
+                    return MovieCard(filmData);
                   },
-                  itemCount: data.film.length,
+                  itemCount: state.result.length,
                 );
-              default:
+              }else{
                 return Center(
                   key: Key('error_message'),
-                  child: Text(data.message),
+                  child: Text("Error"),
                 );
-            }
-          },
+              }
+            },
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
-}

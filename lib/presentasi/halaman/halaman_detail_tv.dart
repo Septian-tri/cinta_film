@@ -38,9 +38,11 @@ class _TvDetailPageState extends State<TvlsDetailPage> {
         builder: (context, provider, child) {
           switch (provider.tvState) {
             case RequestState.Loading:
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+               return Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
+                    );
             case RequestState.Loaded:
               final tv = provider.tv;
               return SafeArea(
@@ -74,9 +76,12 @@ class DetailContent extends StatelessWidget {
         CachedNetworkImage(
           imageUrl: 'https://image.tmdb.org/t/p/w500${tv.posterPath}',
           width: screenWidth,
-          placeholder: (context, url) => Center(
-            child: CircularProgressIndicator(),
-          ),
+          placeholder: (context, url) => 
+          Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
+                    ),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
         Container(
@@ -188,7 +193,9 @@ class DetailContent extends StatelessWidget {
                               builder: (context, data, child) {
                                 switch (data.recommendationTvState) {
                                   case RequestState.Loading:
-                                    return Center(
+                                    return Container(
+                                      alignment: Alignment.center,
+                                      padding: const EdgeInsets.all(20),
                                       child: CircularProgressIndicator(),
                                     );
                                   case RequestState.Error:
@@ -218,9 +225,10 @@ class DetailContent extends StatelessWidget {
                                                   imageUrl:
                                                       'https://image.tmdb.org/t/p/w500${tv.posterPath}',
                                                   placeholder: (context, url) =>
-                                                      Center(
-                                                    child:
-                                                        CircularProgressIndicator(),
+                                                    Container(
+                                                    alignment: Alignment.center,
+                                                    padding: const EdgeInsets.all(20),
+                                                    child: CircularProgressIndicator(),
                                                   ),
                                                   errorWidget:
                                                       (context, url, error) =>

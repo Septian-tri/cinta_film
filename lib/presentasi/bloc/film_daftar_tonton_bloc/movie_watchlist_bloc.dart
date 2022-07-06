@@ -9,6 +9,7 @@ import 'package:bloc/bloc.dart';
 part 'movie_watchlist_state.dart';
 part 'movie_watchlist_event.dart';
 
+
 class MovieWatchlistBloc
     extends Bloc<MovieWatchlistEvent, MovieWatchlistState> {
   static const watchlistRemoveSuccessMessage = 'Removed from Watchlist';
@@ -16,11 +17,8 @@ class MovieWatchlistBloc
   static const watchlistAddSuccessMessage = 'Added to Watchlist';
 
   final ClassStatusDaftarTonton getWatchListStatus;
-
   final ClassDaftarTontonFilm getWatchlistMovies;
-
   final ClassHapusDaftarTonton removeWatchlist;
-
   final ClassSimpanDaftarTonton saveWatchlist;
 
   MovieWatchlistBloc({

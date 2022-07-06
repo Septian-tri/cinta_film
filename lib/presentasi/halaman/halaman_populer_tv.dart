@@ -32,9 +32,11 @@ class _PopularTvPageState extends State<PopularTvlsPage> {
           builder: (context, data, child) {
             switch (data.state) {
               case RequestState.Loading:
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
+                 return Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
+                    );
               case RequestState.Loaded:
                 return ListView.builder(
                   itemBuilder: (context, index) {

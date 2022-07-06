@@ -39,7 +39,9 @@ class SearchTvlsPage extends StatelessWidget {
               builder: (context, data, child) {
                 switch (data.state) {
                   case RequestState.Loading:
-                    return Center(
+                     return Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(20),
                       child: CircularProgressIndicator(),
                     );
                   case RequestState.Loaded:

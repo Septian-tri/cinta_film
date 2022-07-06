@@ -1,9 +1,8 @@
-import 'package:cinta_film/common/state_enum.dart';
 import 'package:cinta_film/common/utils.dart';
-import 'package:cinta_film/presentasi/provider/watchlist_movie_notifier.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cinta_film/presentasi/widgets/movie_card_list.dart';
+import 'package:cinta_film/presentasi/bloc/film_daftar_tonton_bloc/movie_watchlist_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ClassHalamanDaftarTontonFilm extends StatefulWidget {
   static const ROUTE_NAME = '/watchlist-film';
@@ -18,14 +17,13 @@ class _ClassHalamanDaftarTontonFilmState
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<NotifikasiDaftarTontonFilm>(context, listen: false)
-            .fetchwatchlistMovies());
+     Future.microtask(() {
+      context.read<MovieWatchlistBloc>().add(GetListEvent());
+    });
   }
 
   void didPopNext() {
-    Provider.of<NotifikasiDaftarTontonFilm>(context, listen: false)
-        .fetchwatchlistMovies();
+   context.read<MovieWatchlistBloc>().add(GetListEvent());
   }
 
   @override
@@ -42,25 +40,26 @@ class _ClassHalamanDaftarTontonFilmState
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<NotifikasiDaftarTontonFilm>(
-          builder: (context, data, child) {
-            switch (data.watchlistState) {
-              case RequestState.Loading:
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              case RequestState.Loaded:
+        child: BlocBuilder<MovieWatchlistBloc, MovieWatchlistState>(
+          builder: (context, data) {
+           if(data is MovieWatchlistLoading) {
+                 return Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
+                    );
+              } else if (data is MovieWatchlistLoaded) {
                 return ListView.builder(
                   itemBuilder: (context, index) {
-                    final film = data.watchlistMovies[index];
+                    final film = data.result[index];
                     return MovieCard(film);
                   },
-                  itemCount: data.watchlistMovies.length,
+                  itemCount: data.result.length,
                 );
-              default:
+              } else {
                 return Center(
                   key: Key('error_message'),
-                  child: Text(data.message),
+                  child: Text("Failed"),
                 );
             }
           },

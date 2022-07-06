@@ -28,96 +28,101 @@ import 'package:cinta_film/domain/usecases/tvls/get_watchlist_tvls.dart';
 import 'package:cinta_film/domain/usecases/tvls/remove_watchlist_tvls.dart';
 import 'package:cinta_film/domain/usecases/tvls/save_watchlist_tvls.dart';
 import 'package:cinta_film/domain/usecases/tvls/search_tvls.dart';
-import 'package:cinta_film/presentasi/provider/movie_detail_notifier.dart';
-import 'package:cinta_film/presentasi/provider/movie_list_notifier.dart';
-import 'package:cinta_film/presentasi/provider/movie_search_notifier.dart';
-import 'package:cinta_film/presentasi/provider/get_data_film_terpopuler.dart';
-import 'package:cinta_film/presentasi/provider/frame_pesan_film_terpopuler.dart';
-import 'package:cinta_film/presentasi/provider/watchlist_movie_notifier.dart';
-import 'package:cinta_film/presentasi/provider/tvls/popular_tvls_notifier.dart';
-import 'package:cinta_film/presentasi/provider/tvls/top_rated_tvls_notifier.dart';
-import 'package:cinta_film/presentasi/provider/tvls/tvls_detail_notifier.dart';
-import 'package:cinta_film/presentasi/provider/tvls/tvls_list_notifier.dart';
-import 'package:cinta_film/presentasi/provider/tvls/tvls_search_notifier.dart';
-import 'package:cinta_film/presentasi/provider/tvls/watchlist_tvls_notifier.dart';
+import 'package:cinta_film/presentasi/bloc/film_detail_bloc/movie_detail_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/serial_tv_daftar_tonton_bloc/watchlist_tvseries_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/serial_tv_rating_terbaik_bloc/top_rated_tvseries_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:cinta_film/common/ssl_pinning.dart';
+import 'package:cinta_film/presentasi/bloc/film_daftar_tonton_bloc/movie_watchlist_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/film_pencarian_bloc/movie_search_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/film_rating_terbaik_bloc/movie_top_rated_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/film_rekomendasi_bloc/movie_recommendation_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/film_saat_ini_tayang_bloc/movie_now_playing_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/film_terpopuler_bloc/movie_popular_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/serial_tv_detail_bloc/tvseries_detail_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/serial_tv_pencarian_bloc/tvseries_search_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/serial_tv_rekomendasi_bloc/tvseries_recommendations_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/serial_tv_saat_ini_tayang_bloc/on_the_air_tvseries_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/serial_tv_terpopuler_bloc/popular_tvseries_bloc.dart';
 
 final locator = GetIt.instance;
 
 void init() {
-  // provider
-  locator.registerFactory(
-    () => MovieListNotifier(
-      filmTayangSaatIni: locator(),
-      getPopularMovies: locator(),
-      ambilFilmRatingTerbaik: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TvlsListNotifier(
-      getserialTvSaatIniDiPutarls: locator(),
-      getPopularTvls: locator(),
-      getTopRatedTvls: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => MovieDetailNotifier(
+  locator.registerFactory(() => 
+    MovieDetailBloc(
       getMovieDetail: locator(),
+    )
+  );
+  locator.registerFactory(() =>
+    MovieNowPlayingBloc(
+      locator()
+    ),
+  );
+  locator.registerFactory(() => 
+    MoviePopularBloc(
+      locator()
+    ),
+  );
+  locator.registerFactory(() => 
+    MovieRecommendationBloc(
       getMovieRecommendations: locator(),
-      getwatchlistStatus: locator(),
-      savewatchlist: locator(),
-      removewatchlist: locator(),
+    )
+  );
+  locator.registerFactory(() => 
+    MovieSearchBloc(
+      searchMovies: locator(),
+    )
+  );
+  locator.registerFactory(() => 
+    MovieTopRatedBloc(
+      locator()
     ),
   );
-  locator.registerFactory(
-    () => TvlsDetailNotifier(
-      getTvlsDetail: locator(),
-      getTvlsRecommendations: locator(),
-      getwatchlistStatusTvls: locator(),
-      savewatchlistTvls: locator(),
-      removewatchlistTvls: locator(),
-    ),
+  locator.registerFactory(() => 
+    MovieWatchlistBloc(
+      getWatchlistMovies: locator(),
+      getWatchListStatus: locator(),
+      saveWatchlist: locator(),
+      removeWatchlist: locator(),
+    )
   );
-  locator.registerFactory(
-    () => MovieSearchNotifier(
-      cariFilm: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TvlsSearchNotifier(
-      searchTv: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => NotifikasiFilmTerPopuler(
+  locator.registerFactory(() => 
+    TvseriesDetailBloc(
       locator(),
+    )
+  );
+  locator.registerFactory(() => 
+    OnTheAirTvseriesBloc(
+      locator()
     ),
   );
-  locator.registerFactory(
-    () => PopularTvlsNotifier(
+  locator.registerFactory(() => 
+    PopularTvseriesBloc(
+      locator()
+    ),
+  );
+  locator.registerFactory(() => 
+    TvseriesRecommendationsBloc(
       locator(),
+    )
+  );
+  locator.registerFactory(() => 
+    TvseriesSearchBloc(
+        locator(),
+    )
+  );
+  locator.registerFactory(() => 
+    TopRatedTvseriesBloc(
+      locator()
     ),
   );
-  locator.registerFactory(
-    () => TopRatedMoviesNotifier(
-      ambilFilmRatingTerbaik: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TopRatedTvlsNotifier(
-      getTopRatedTv: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => NotifikasiDaftarTontonFilm(
-      ambilDaftarTontonFilm: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => WatchlistTvlsNotifier(
-      getwatchlistTv: locator(),
-    ),
+  locator.registerFactory(() => 
+    WatchlistTvseriesBloc(
+        locator(),
+        locator(),
+        locator(),
+        locator(),
+    )
   );
 
   // use case

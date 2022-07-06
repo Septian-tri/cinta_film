@@ -59,9 +59,12 @@ class MovieCard extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageUrl: '$BASE_IMAGE_URL${film.posterPath}',
                   width: 80,
-                  placeholder: (context, url) => Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  placeholder: (context, url) =>
+                   Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(20),
+                      child: CircularProgressIndicator(),
+                    ),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(8)),
