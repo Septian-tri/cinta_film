@@ -100,10 +100,11 @@ class _FakeClassCariFilm_11 extends _i1.Fake implements _i13.ClassCariFilm {}
 class _FakeMovieSearchState_12 extends _i1.Fake
     implements _i14.MovieSearchState {}
 
-class _FakeGetMovieDetail_13 extends _i1.Fake implements _i15.GetMovieDetail {}
+class _FakeAmbilDataDetailFilm_13 extends _i1.Fake
+    implements _i15.AmbilDataDetailFilm {}
 
-class _FakeMovieDetailState_14 extends _i1.Fake
-    implements _i16.MovieDetailState {}
+class _FakeStateDetailFilm_14 extends _i1.Fake implements _i16.StateDetailFilm {
+}
 
 class _FakeClassStatusDaftarTonton_15 extends _i1.Fake
     implements _i17.ClassStatusDaftarTonton {}
@@ -117,8 +118,8 @@ class _FakeClassHapusDaftarTonton_17 extends _i1.Fake
 class _FakeClassSimpanDaftarTonton_18 extends _i1.Fake
     implements _i20.ClassSimpanDaftarTonton {}
 
-class _FakeMovieWatchlistState_19 extends _i1.Fake
-    implements _i21.MovieWatchlistState {}
+class _FakeStateDaftarTontonFilm_19 extends _i1.Fake
+    implements _i21.StateDaftarTontonFilm {}
 
 class _FakeResponse_20 extends _i1.Fake implements _i22.Response {}
 
@@ -331,11 +332,12 @@ class MockClassDaftarTontonFilm extends _i1.Mock
           .Future<_i2.Either<_i24.Failure, List<_i25.Film>>>);
 }
 
-/// A class which mocks [GetMovieDetail].
+/// A class which mocks [AmbilDataDetailFilm].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetMovieDetail extends _i1.Mock implements _i15.GetMovieDetail {
-  MockGetMovieDetail() {
+class MockAmbilDataDetailFilm extends _i1.Mock
+    implements _i15.AmbilDataDetailFilm {
+  MockAmbilDataDetailFilm() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -871,53 +873,53 @@ class MockMovieSearchBloc extends _i1.Mock implements _i14.MovieSearchBloc {
           returnValueForMissingStub: null);
 }
 
-/// A class which mocks [MovieDetailBloc].
+/// A class which mocks [DetailFilmBloc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMovieDetailBloc extends _i1.Mock implements _i16.MovieDetailBloc {
-  MockMovieDetailBloc() {
+class MockDetailFilmBloc extends _i1.Mock implements _i16.DetailFilmBloc {
+  MockDetailFilmBloc() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i15.GetMovieDetail get getMovieDetail =>
-      (super.noSuchMethod(Invocation.getter(#getMovieDetail),
-          returnValue: _FakeGetMovieDetail_13()) as _i15.GetMovieDetail);
+  _i15.AmbilDataDetailFilm get getMovieDetail => (super.noSuchMethod(
+      Invocation.getter(#getMovieDetail),
+      returnValue: _FakeAmbilDataDetailFilm_13()) as _i15.AmbilDataDetailFilm);
   @override
-  _i16.MovieDetailState get state =>
+  _i16.StateDetailFilm get state =>
       (super.noSuchMethod(Invocation.getter(#state),
-          returnValue: _FakeMovieDetailState_14()) as _i16.MovieDetailState);
+          returnValue: _FakeStateDetailFilm_14()) as _i16.StateDetailFilm);
   @override
-  _i23.Stream<_i16.MovieDetailState> get stream =>
+  _i23.Stream<_i16.StateDetailFilm> get stream =>
       (super.noSuchMethod(Invocation.getter(#stream),
-              returnValue: Stream<_i16.MovieDetailState>.empty())
-          as _i23.Stream<_i16.MovieDetailState>);
+              returnValue: Stream<_i16.StateDetailFilm>.empty())
+          as _i23.Stream<_i16.StateDetailFilm>);
   @override
   bool get isClosed =>
       (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
           as bool);
   @override
-  void add(_i16.MovieDetailEvent? event) =>
+  void add(_i16.EventDetailFilm? event) =>
       super.noSuchMethod(Invocation.method(#add, [event]),
           returnValueForMissingStub: null);
   @override
-  void onEvent(_i16.MovieDetailEvent? event) =>
+  void onEvent(_i16.EventDetailFilm? event) =>
       super.noSuchMethod(Invocation.method(#onEvent, [event]),
           returnValueForMissingStub: null);
   @override
-  void emit(_i16.MovieDetailState? state) =>
+  void emit(_i16.StateDetailFilm? state) =>
       super.noSuchMethod(Invocation.method(#emit, [state]),
           returnValueForMissingStub: null);
   @override
-  void on<E extends _i16.MovieDetailEvent>(
-          _i33.EventHandler<E, _i16.MovieDetailState>? handler,
+  void on<E extends _i16.EventDetailFilm>(
+          _i33.EventHandler<E, _i16.StateDetailFilm>? handler,
           {_i33.EventTransformer<E>? transformer}) =>
       super.noSuchMethod(
           Invocation.method(#on, [handler], {#transformer: transformer}),
           returnValueForMissingStub: null);
   @override
   void onTransition(
-          _i33.Transition<_i16.MovieDetailEvent, _i16.MovieDetailState>?
+          _i33.Transition<_i16.EventDetailFilm, _i16.StateDetailFilm>?
               transition) =>
       super.noSuchMethod(Invocation.method(#onTransition, [transition]),
           returnValueForMissingStub: null);
@@ -927,7 +929,7 @@ class MockMovieDetailBloc extends _i1.Mock implements _i16.MovieDetailBloc {
       returnValue: Future<void>.value(),
       returnValueForMissingStub: Future<void>.value()) as _i23.Future<void>);
   @override
-  void onChange(_i33.Change<_i16.MovieDetailState>? change) =>
+  void onChange(_i33.Change<_i16.StateDetailFilm>? change) =>
       super.noSuchMethod(Invocation.method(#onChange, [change]),
           returnValueForMissingStub: null);
   @override
@@ -940,12 +942,12 @@ class MockMovieDetailBloc extends _i1.Mock implements _i16.MovieDetailBloc {
           returnValueForMissingStub: null);
 }
 
-/// A class which mocks [MovieWatchlistBloc].
+/// A class which mocks [DaftarTontonFilmBloc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMovieWatchlistBloc extends _i1.Mock
-    implements _i21.MovieWatchlistBloc {
-  MockMovieWatchlistBloc() {
+class MockDaftarTontonFilmBloc extends _i1.Mock
+    implements _i21.DaftarTontonFilmBloc {
+  MockDaftarTontonFilmBloc() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -970,40 +972,42 @@ class MockMovieWatchlistBloc extends _i1.Mock
               returnValue: _FakeClassSimpanDaftarTonton_18())
           as _i20.ClassSimpanDaftarTonton);
   @override
-  _i21.MovieWatchlistState get state => (super.noSuchMethod(
-      Invocation.getter(#state),
-      returnValue: _FakeMovieWatchlistState_19()) as _i21.MovieWatchlistState);
+  _i21.StateDaftarTontonFilm get state =>
+      (super.noSuchMethod(Invocation.getter(#state),
+              returnValue: _FakeStateDaftarTontonFilm_19())
+          as _i21.StateDaftarTontonFilm);
   @override
-  _i23.Stream<_i21.MovieWatchlistState> get stream =>
+  _i23.Stream<_i21.StateDaftarTontonFilm> get stream =>
       (super.noSuchMethod(Invocation.getter(#stream),
-              returnValue: Stream<_i21.MovieWatchlistState>.empty())
-          as _i23.Stream<_i21.MovieWatchlistState>);
+              returnValue: Stream<_i21.StateDaftarTontonFilm>.empty())
+          as _i23.Stream<_i21.StateDaftarTontonFilm>);
   @override
   bool get isClosed =>
       (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
           as bool);
   @override
-  void add(_i21.MovieWatchlistEvent? event) =>
+  void add(_i21.EventDaftarTontonFilm? event) =>
       super.noSuchMethod(Invocation.method(#add, [event]),
           returnValueForMissingStub: null);
   @override
-  void onEvent(_i21.MovieWatchlistEvent? event) =>
+  void onEvent(_i21.EventDaftarTontonFilm? event) =>
       super.noSuchMethod(Invocation.method(#onEvent, [event]),
           returnValueForMissingStub: null);
   @override
-  void emit(_i21.MovieWatchlistState? state) =>
+  void emit(_i21.StateDaftarTontonFilm? state) =>
       super.noSuchMethod(Invocation.method(#emit, [state]),
           returnValueForMissingStub: null);
   @override
-  void on<E extends _i21.MovieWatchlistEvent>(
-          _i33.EventHandler<E, _i21.MovieWatchlistState>? handler,
+  void on<E extends _i21.EventDaftarTontonFilm>(
+          _i33.EventHandler<E, _i21.StateDaftarTontonFilm>? handler,
           {_i33.EventTransformer<E>? transformer}) =>
       super.noSuchMethod(
           Invocation.method(#on, [handler], {#transformer: transformer}),
           returnValueForMissingStub: null);
   @override
   void onTransition(
-          _i33.Transition<_i21.MovieWatchlistEvent, _i21.MovieWatchlistState>?
+          _i33.Transition<_i21.EventDaftarTontonFilm,
+                  _i21.StateDaftarTontonFilm>?
               transition) =>
       super.noSuchMethod(Invocation.method(#onTransition, [transition]),
           returnValueForMissingStub: null);
@@ -1013,7 +1017,7 @@ class MockMovieWatchlistBloc extends _i1.Mock
       returnValue: Future<void>.value(),
       returnValueForMissingStub: Future<void>.value()) as _i23.Future<void>);
   @override
-  void onChange(_i33.Change<_i21.MovieWatchlistState>? change) =>
+  void onChange(_i33.Change<_i21.StateDaftarTontonFilm>? change) =>
       super.noSuchMethod(Invocation.method(#onChange, [change]),
           returnValueForMissingStub: null);
   @override

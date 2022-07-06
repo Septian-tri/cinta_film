@@ -8,50 +8,50 @@ import '../../dummy_data/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late MockGetMovieDetail mockGetMovieDetail;
+  late MockAmbilDataDetailFilm mockAmbilDataDetailFilm;
 
-  late MovieDetailBloc movieDetailBloc;
+  late DetailFilmBloc movieDetailBloc;
 
   const revId = 1;
 
   setUp(() {
-    mockGetMovieDetail = MockGetMovieDetail();
+    mockAmbilDataDetailFilm = MockAmbilDataDetailFilm();
 
-    movieDetailBloc = MovieDetailBloc(getMovieDetail: mockGetMovieDetail);
+    movieDetailBloc = DetailFilmBloc(getMovieDetail: mockAmbilDataDetailFilm);
   });
 
-  test("MovieDetailBloc must be initial state should be empty", () {
-    expect(movieDetailBloc.state, MovieDetailEmpty());
+  test("DetailFilmBloc must be initial state should be empty", () {
+    expect(movieDetailBloc.state, DataDetailFilmKosong());
   });
 
-  blocTest<MovieDetailBloc, MovieDetailState>(
-    'MovieDetailBloc must be emit [Loading, Loaded] when data is gotten successfully',
+  blocTest<DetailFilmBloc, StateDetailFilm>(
+    'DetailFilmBloc must be emit [Loading, Loaded] when data is gotten successfully',
     build: () {
-      when(mockGetMovieDetail.execute(revId))
+      when(mockAmbilDataDetailFilm.execute(revId))
           .thenAnswer((_) async => Right(testMovieDetail));
 
       return movieDetailBloc;
     },
-    act: (bloc) => bloc.add(const GetMovieDetailEvent(revId)),
+    act: (bloc) => bloc.add(const GetEventDetailFilm(revId)),
     expect: () => [MovieDetailLoading(), MovieDetailLoaded(testMovieDetail)],
     verify: (bloc) {
-      verify(mockGetMovieDetail.execute(revId));
+      verify(mockAmbilDataDetailFilm.execute(revId));
     },
   );
 
-  blocTest<MovieDetailBloc, MovieDetailState>(
-    'MovieDetailBloc must be emit [Loading, Error] when get detail is unsuccessful',
+  blocTest<DetailFilmBloc, StateDetailFilm>(
+    'DetailFilmBloc must be emit [Loading, Error] when get detail is unsuccessful',
     build: () {
-      when(mockGetMovieDetail.execute(revId))
+      when(mockAmbilDataDetailFilm.execute(revId))
           .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
 
       return movieDetailBloc;
     },
-    act: (bloc) => bloc.add(const GetMovieDetailEvent(revId)),
+    act: (bloc) => bloc.add(const GetEventDetailFilm(revId)),
     expect: () =>
         [MovieDetailLoading(), const MovieDetailError('Server Failure')],
     verify: (bloc) {
-      verify(mockGetMovieDetail.execute(revId));
+      verify(mockAmbilDataDetailFilm.execute(revId));
     },
   );
 }

@@ -1,8 +1,7 @@
-import 'package:cinta_film/common/state_enum.dart';
-import 'package:cinta_film/presentasi/provider/tvls/tvls_search_notifier.dart';
-import 'package:cinta_film/presentasi/widgets/tvls_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/serial_tv_pencarian_bloc/tvseries_search_bloc.dart';
+import 'package:cinta_film/presentasi/widgets/tvls_card_list.dart';
 
 class SearchTvlsPage extends StatelessWidget {
   static const ROUTE_NAME = '/pencarian-tv';
@@ -25,8 +24,8 @@ class SearchTvlsPage extends StatelessWidget {
             TextField(
               onSubmitted: (query) {
                 cari = true;
-                Provider.of<TvlsSearchNotifier>(context, listen: false)
-                    .cariSerialTv(query);
+                context.read<TvseriesSearchBloc>()
+                       .add(TvseriesSearchQueryEvent(query));
               },
               decoration: InputDecoration(
                 hintText: 'Cari Serial Tv Disini',
@@ -35,28 +34,26 @@ class SearchTvlsPage extends StatelessWidget {
               ),
               textInputAction: TextInputAction.search,
             ),
-            Consumer<TvlsSearchNotifier>(
-              builder: (context, data, child) {
-                switch (data.state) {
-                  case RequestState.Loading:
+            BlocBuilder<TvseriesSearchBloc, TvseriesSearchState>(
+              builder: (context, state) {
+                if (state is TvseriesSearchLoading) {
                      return Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(20),
                       child: CircularProgressIndicator(),
                     );
-                  case RequestState.Loaded:
-                    final result = data.searchTvResult;
+                 } else if (state is TvseriesSearchLoaded) {
                     return Expanded(
                       child: ListView.builder(
                         padding: const EdgeInsets.all(8),
                         itemBuilder: (context, index) {
-                          final tv = data.searchTvResult[index];
+                          final tv = state.result[index];
                           return TvlsCard(tv);
                         },
-                        itemCount: result.length,
+                        itemCount: state.result.length,
                       ),
                     );
-                  default:
+                 } else {
                     if (cari) {
                       cari = false;
                       return Center(

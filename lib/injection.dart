@@ -49,7 +49,7 @@ final locator = GetIt.instance;
 
 void init() {
   locator.registerFactory(() => 
-    MovieDetailBloc(
+    DetailFilmBloc(
       getMovieDetail: locator(),
     )
   );
@@ -79,7 +79,7 @@ void init() {
     ),
   );
   locator.registerFactory(() => 
-    MovieWatchlistBloc(
+    DaftarTontonFilmBloc(
       getWatchlistMovies: locator(),
       getWatchListStatus: locator(),
       saveWatchlist: locator(),
@@ -129,7 +129,7 @@ void init() {
   locator.registerLazySingleton(() => ClasFilmTayangSaatIni(locator()));
   locator.registerLazySingleton(() => ClassFilmTerPopuler(locator()));
   locator.registerLazySingleton(() => ClassFilmRatingTerbaik(locator()));
-  locator.registerLazySingleton(() => GetMovieDetail(locator()));
+  locator.registerLazySingleton(() => AmbilDataDetailFilm(locator()));
   locator.registerLazySingleton(() => AmbilDataRekomendasiFilm(locator()));
   locator.registerLazySingleton(() => ClassCariFilm(locator()));
   locator.registerLazySingleton(() => ClassStatusDaftarTonton(locator()));

@@ -18,12 +18,12 @@ class _ClassHalamanDaftarTontonFilmState
   void initState() {
     super.initState();
      Future.microtask(() {
-      context.read<MovieWatchlistBloc>().add(GetListEvent());
+      context.read<DaftarTontonFilmBloc>().add(GetListEvent());
     });
   }
 
   void didPopNext() {
-   context.read<MovieWatchlistBloc>().add(GetListEvent());
+   context.read<DaftarTontonFilmBloc>().add(GetListEvent());
   }
 
   @override
@@ -40,7 +40,7 @@ class _ClassHalamanDaftarTontonFilmState
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: BlocBuilder<MovieWatchlistBloc, MovieWatchlistState>(
+        child: BlocBuilder<DaftarTontonFilmBloc, StateDaftarTontonFilm>(
           builder: (context, data) {
            if(data is MovieWatchlistLoading) {
                  return Container(

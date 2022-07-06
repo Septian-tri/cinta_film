@@ -1,15 +1,15 @@
 part of 'movie_watchlist_bloc.dart';
 
-abstract class MovieWatchlistEvent extends Equatable {
-  const MovieWatchlistEvent();
+abstract class EventDaftarTontonFilm extends Equatable {
+  const EventDaftarTontonFilm();
 
   @override
   List<Object> get props => [];
 }
 
-class GetListEvent extends MovieWatchlistEvent {}
+class GetListEvent extends EventDaftarTontonFilm {}
 
-class GetStatusTvEvent extends MovieWatchlistEvent {
+class GetStatusTvEvent extends EventDaftarTontonFilm {
   final int id;
 
   const GetStatusTvEvent(this.id);
@@ -18,7 +18,7 @@ class GetStatusTvEvent extends MovieWatchlistEvent {
   List<Object> get props => [id];
 }
 
-class GetStatusMovieEvent extends MovieWatchlistEvent {
+class GetStatusMovieEvent extends EventDaftarTontonFilm {
   final int id;
 
   const GetStatusMovieEvent(this.id);
@@ -27,7 +27,7 @@ class GetStatusMovieEvent extends MovieWatchlistEvent {
   List<Object> get props => [id];
 }
 
-class RemoveItemMovieEvent extends MovieWatchlistEvent {
+class RemoveItemMovieEvent extends EventDaftarTontonFilm {
   final MovieDetail movieDetail;
 
   const RemoveItemMovieEvent(this.movieDetail);
@@ -36,7 +36,7 @@ class RemoveItemMovieEvent extends MovieWatchlistEvent {
   List<Object> get props => [movieDetail];
 }
 
-class AddItemMovieEvent extends MovieWatchlistEvent {
+class AddItemMovieEvent extends EventDaftarTontonFilm {
   final MovieDetail movieDetail;
 
   const AddItemMovieEvent(this.movieDetail);

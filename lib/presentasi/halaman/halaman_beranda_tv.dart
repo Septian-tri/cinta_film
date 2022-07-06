@@ -6,10 +6,11 @@ import 'package:cinta_film/presentasi/halaman/halaman_populer_tv.dart';
 import 'package:cinta_film/presentasi/halaman/halaman_pencarian_tv.dart';
 import 'package:cinta_film/presentasi/halaman/halaman_list_tv_rating_terbaik.dart';
 import 'package:cinta_film/presentasi/halaman/halaman_detail_tv.dart';
-import 'package:cinta_film/presentasi/provider/tvls/tvls_list_notifier.dart';
-import 'package:cinta_film/common/state_enum.dart';
+import 'package:cinta_film/presentasi/bloc/serial_tv_saat_ini_tayang_bloc/on_the_air_tvseries_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/serial_tv_terpopuler_bloc/popular_tvseries_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/serial_tv_rating_terbaik_bloc/top_rated_tvseries_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HomeTvlsPage extends StatefulWidget {
   @override
@@ -21,10 +22,11 @@ class _HomeTvlsPageState extends State<HomeTvlsPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => Provider.of<TvlsListNotifier>(context, listen: false)
-      ..fetchserialTvSaatIniDiPutar()
-      ..fetchPopularTv()
-      ..fetchTopRatedTv());
+     Future.microtask(() {
+      context.read<OnTheAirTvseriesBloc>().add(OnTheAirTvseriesGetEvent());
+      context.read<PopularTvseriesBloc>().add(PopularTvseriesGetEvent());
+      context.read<TopRatedTvseriesBloc>().add(TopRatedTvseriesGetEvent());
+    });
   }
 
   final drawerFrame = ClassDrawerKiri();
@@ -57,18 +59,17 @@ class _HomeTvlsPageState extends State<HomeTvlsPage> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              Consumer<TvlsListNotifier>(builder: (context, data, child) {
-                final state = data.serialTvSaatIniDiPutarState;
-                switch (state) {
-                  case RequestState.Loading:
+              BlocBuilder<OnTheAirTvseriesBloc, OnTheAirTvseriesState>(
+                builder: (context, data) {
+                  if (data is OnTheAirTvseriesLoading) {
                     return Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(20),
                       child: CircularProgressIndicator(),
                     );
-                  case RequestState.Loaded:
-                    return TvList(data.serialTvSaatIniDiPutar);
-                  default:
+                  } else if (data is OnTheAirTvseriesLoaded) {
+                    return TvList(data.result);
+                  }else{
                     return Center(
                       child: Container(
                         alignment: Alignment.center,
@@ -94,18 +95,17 @@ class _HomeTvlsPageState extends State<HomeTvlsPage> {
                 onTap: () =>
                     Navigator.pushNamed(context, PopularTvlsPage.ROUTE_NAME),
               ),
-              Consumer<TvlsListNotifier>(builder: (context, data, child) {
-                final state = data.popularTvState;
-                switch (state) {
-                  case RequestState.Loading:
+               BlocBuilder<PopularTvseriesBloc, PopularTvseriesState>(
+                builder: (context, state) {
+                  if (state is PopularTvseriesLoading) {
                     return Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(20),
                       child: CircularProgressIndicator(),
                     );
-                  case RequestState.Loaded:
-                    return TvList(data.popularTv);
-                  default:
+                  } else if (state is PopularTvseriesLoaded) {
+                    return TvList(state.result);
+                  }else{
                     return Center(
                       child: Container(
                         alignment: Alignment.center,
@@ -131,18 +131,17 @@ class _HomeTvlsPageState extends State<HomeTvlsPage> {
                 onTap: () => Navigator.pushNamed(
                     context, HalamanSerialTvTerbaik.ROUTE_NAME),
               ),
-              Consumer<TvlsListNotifier>(builder: (context, data, child) {
-                final state = data.serialTvRatingTerbaikState;
-                switch (state) {
-                  case RequestState.Loading:
+               BlocBuilder<TopRatedTvseriesBloc, TopRatedTvseriesState>(
+                builder: (context, state) {
+                  if (state is TopRatedTvseriesLoading) {
                     return Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(20),
                       child: CircularProgressIndicator(),
                     );
-                  case RequestState.Loaded:
-                    return TvList(data.serialTvRatingTerbaik);
-                  default:
+                   } else if (state is TopRatedTvseriesLoaded) {
+                    return TvList(state.result);
+                   }else{
                     return Center(
                       child: Container(
                         alignment: Alignment.center,

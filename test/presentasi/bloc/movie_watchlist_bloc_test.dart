@@ -12,7 +12,7 @@ void main() {
   late MockClassStatusDaftarTonton mockGetWatchListStatus;
   late MockClassSimpanDaftarTonton mockSaveWatchlist;
   late MockClassHapusDaftarTonton mockRemoveWatchlist;
-  late MovieWatchlistBloc movieWatchlistBloc;
+  late DaftarTontonFilmBloc movieWatchlistBloc;
 
   setUp(() {
     mockGetWatchlistMovies = MockClassDaftarTontonFilm();
@@ -20,7 +20,7 @@ void main() {
     mockSaveWatchlist = MockClassSimpanDaftarTonton();
     mockRemoveWatchlist = MockClassHapusDaftarTonton();
 
-    movieWatchlistBloc = MovieWatchlistBloc(
+    movieWatchlistBloc = DaftarTontonFilmBloc(
       getWatchlistMovies: mockGetWatchlistMovies,
       getWatchListStatus: mockGetWatchListStatus,
       saveWatchlist: mockSaveWatchlist,
@@ -30,12 +30,12 @@ void main() {
 
   const revId = 1;
 
-  test("MovieWatchlistBloc must be initial state should be empty", () {
+  test("DaftarTontonFilmBloc must be initial state should be empty", () {
     expect(movieWatchlistBloc.state, MovieWatchlistEmpty());
   });
 
-  blocTest<MovieWatchlistBloc, MovieWatchlistState>(
-    'MovieWatchlistBloc must be emit [Loading, Loaded] when data is gotten successfully',
+  blocTest<DaftarTontonFilmBloc, StateDaftarTontonFilm>(
+    'DaftarTontonFilmBloc must be emit [Loading, Loaded] when data is gotten successfully',
     build: () {
       when(mockGetWatchlistMovies.execute())
           .thenAnswer((_) async => Right(testMovieList));
@@ -50,8 +50,8 @@ void main() {
     },
   );
 
-  blocTest<MovieWatchlistBloc, MovieWatchlistState>(
-    'MovieWatchlistBloc must be emit [Loading, Error] when get watchlist is unsuccessful',
+  blocTest<DaftarTontonFilmBloc, StateDaftarTontonFilm>(
+    'DaftarTontonFilmBloc must be emit [Loading, Error] when get watchlist is unsuccessful',
     build: () {
       when(mockGetWatchlistMovies.execute())
           .thenAnswer((_) async => Left(ServerFailure("Can't get data")));
@@ -66,8 +66,8 @@ void main() {
     },
   );
 
-  blocTest<MovieWatchlistBloc, MovieWatchlistState>(
-    'MovieWatchlistBloc must emit [Loaded] when get status movie watchlist is successful',
+  blocTest<DaftarTontonFilmBloc, StateDaftarTontonFilm>(
+    'DaftarTontonFilmBloc must emit [Loaded] when get status movie watchlist is successful',
     build: () {
       when(mockGetWatchListStatus.execute(revId)).thenAnswer((_) async => true);
 
@@ -80,8 +80,8 @@ void main() {
     },
   );
 
-  blocTest<MovieWatchlistBloc, MovieWatchlistState>(
-    'MovieWatchlistBloc must be emit [success] when add movie item to watchlist is successful',
+  blocTest<DaftarTontonFilmBloc, StateDaftarTontonFilm>(
+    'DaftarTontonFilmBloc must be emit [success] when add movie item to watchlist is successful',
     build: () {
       when(mockSaveWatchlist.execute(testMovieDetail))
           .thenAnswer((_) async => const Right("Success"));
@@ -95,8 +95,8 @@ void main() {
     },
   );
 
-  blocTest<MovieWatchlistBloc, MovieWatchlistState>(
-    'MovieWatchlistBloc must be emit [success] when remove movie item to watchlist is successful',
+  blocTest<DaftarTontonFilmBloc, StateDaftarTontonFilm>(
+    'DaftarTontonFilmBloc must be emit [success] when remove movie item to watchlist is successful',
     build: () {
       when(mockRemoveWatchlist.execute(testMovieDetail))
           .thenAnswer((_) async => const Right("Removed"));
@@ -110,8 +110,8 @@ void main() {
     },
   );
 
-  blocTest<MovieWatchlistBloc, MovieWatchlistState>(
-    'MovieWatchlistBloc must be emit [error] when add movie item to watchlist is unsuccessful',
+  blocTest<DaftarTontonFilmBloc, StateDaftarTontonFilm>(
+    'DaftarTontonFilmBloc must be emit [error] when add movie item to watchlist is unsuccessful',
     build: () {
       when(mockSaveWatchlist.execute(testMovieDetail))
           .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
@@ -125,8 +125,8 @@ void main() {
     },
   );
 
-  blocTest<MovieWatchlistBloc, MovieWatchlistState>(
-    'MovieWatchlistBloc must be emit [error] when remove movie item to watchlist is unsuccessful',
+  blocTest<DaftarTontonFilmBloc, StateDaftarTontonFilm>(
+    'DaftarTontonFilmBloc must be emit [error] when remove movie item to watchlist is unsuccessful',
     build: () {
       when(mockRemoveWatchlist.execute(testMovieDetail))
           .thenAnswer((_) async => Left(DatabaseFailure('Failed')));

@@ -7,11 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cinta_film/common/utils.dart';
 import 'package:cinta_film/domain/entities/film.dart';
 import 'package:cinta_film/domain/entities/movie_detail.dart';
-import 'package:cinta_film/presentasi/provider/movie_detail_notifier.dart';
-import 'package:cinta_film/common/state_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:provider/provider.dart';
 
 class MovieDetailPage extends StatefulWidget {
   
@@ -30,13 +27,13 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   void initState() {
     super.initState();
     Future.microtask((){
-      context.read<MovieDetailBloc>().add(
-        GetMovieDetailEvent(widget.id)
+      context.read<DetailFilmBloc>().add(
+        GetEventDetailFilm(widget.id)
       );
       context.read<MovieRecommendationBloc>().add(
         GetMovieRecommendationEvent(widget.id)
       );
-      context.read<MovieWatchlistBloc>().add(
+      context.read<DaftarTontonFilmBloc>().add(
         GetStatusMovieEvent(widget.id)
       );
     }
@@ -47,7 +44,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   Widget build(BuildContext context) {
     MovieRecommendationState movieRecommendations = context.watch<MovieRecommendationBloc>().state;
     return Scaffold(
-      body: BlocListener<MovieWatchlistBloc, MovieWatchlistState>(
+      body: BlocListener<DaftarTontonFilmBloc, StateDaftarTontonFilm>(
         listener: (_, state) {
           if (state is MovieWatchlistSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -55,10 +52,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                 content: Text(state.message),
               )
             );
-            context.read<MovieWatchlistBloc>().add(GetStatusMovieEvent(widget.id));
+            context.read<DaftarTontonFilmBloc>().add(GetStatusMovieEvent(widget.id));
           }
        },
-       child:  BlocBuilder<MovieDetailBloc, MovieDetailState>(
+       child:  BlocBuilder<DetailFilmBloc, StateDetailFilm>(
         builder: (context, provider) {
           if (provider is MovieDetailLoading) {
             return Container(
@@ -69,7 +66,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           }else if(provider is MovieDetailLoaded){
             
             final film = provider.movieDetail;
-            bool isAddedToWatchlist = (context.watch<MovieWatchlistBloc>().state is MovieWatchlistStatusLoaded) ? (context.read<MovieWatchlistBloc>().state as MovieWatchlistStatusLoaded).result : false;
+            bool isAddedToWatchlist = (context.watch<DaftarTontonFilmBloc>().state is MovieWatchlistStatusLoaded) ? (context.read<DaftarTontonFilmBloc>().state as MovieWatchlistStatusLoaded).result : false;
         
             return SafeArea(
               child: DetailContent(
@@ -142,9 +139,9 @@ class DetailContent extends StatelessWidget {
                           ElevatedButton(
                             onPressed: () async {
                               if (!isAddedwatchlist) {
-                                BlocProvider.of<MovieWatchlistBloc>(context).add(AddItemMovieEvent(film));
+                                BlocProvider.of<DaftarTontonFilmBloc>(context).add(AddItemMovieEvent(film));
                               } else {
-                                BlocProvider.of<MovieWatchlistBloc>(context).add(RemoveItemMovieEvent(film));
+                                BlocProvider.of<DaftarTontonFilmBloc>(context).add(RemoveItemMovieEvent(film));
                               }
                             },
                             child: Row(

@@ -1,8 +1,7 @@
-import 'package:cinta_film/common/state_enum.dart';
-import 'package:cinta_film/presentasi/provider/tvls/popular_tvls_notifier.dart';
 import 'package:cinta_film/presentasi/widgets/tvls_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/serial_tv_terpopuler_bloc/popular_tvseries_bloc.dart';
 
 class PopularTvlsPage extends StatefulWidget {
   static const ROUTE_NAME = '/popular-tv';
@@ -15,9 +14,9 @@ class _PopularTvPageState extends State<PopularTvlsPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<PopularTvlsNotifier>(context, listen: false)
-            .fetchPopularTv());
+    Future.microtask(() {
+      context.read<PopularTvseriesBloc>().add(PopularTvseriesGetEvent());
+    });
   }
 
   @override
@@ -28,27 +27,26 @@ class _PopularTvPageState extends State<PopularTvlsPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularTvlsNotifier>(
-          builder: (context, data, child) {
-            switch (data.state) {
-              case RequestState.Loading:
+        child:BlocBuilder<PopularTvseriesBloc, PopularTvseriesState>(
+          builder: (context, state) {
+            if (state is PopularTvseriesLoading) {
                  return Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(20),
                       child: CircularProgressIndicator(),
                     );
-              case RequestState.Loaded:
+                } else if (state is PopularTvseriesLoaded) {
                 return ListView.builder(
                   itemBuilder: (context, index) {
-                    final tvs = data.tv[index];
+                    final tvs = state.result[index];
                     return TvlsCard(tvs);
                   },
-                  itemCount: data.tv.length,
+                  itemCount: state.result.length,
                 );
-              default:
+                }else{
                 return Center(
                   key: Key('error_message'),
-                  child: Text(data.message),
+                  child: Text("Failed Fetch Data"),
                 );
             }
           },

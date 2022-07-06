@@ -7,12 +7,12 @@ import '../../dummy_data/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late GetMovieDetail usecase;
+  late AmbilDataDetailFilm usecase;
   late MockRepositoryFilm mockRepositoryFilm;
 
   setUp(() {
     mockRepositoryFilm = MockRepositoryFilm();
-    usecase = GetMovieDetail(mockRepositoryFilm);
+    usecase = AmbilDataDetailFilm(mockRepositoryFilm);
   });
 
   final tId = 1;

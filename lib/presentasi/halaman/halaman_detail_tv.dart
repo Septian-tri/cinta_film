@@ -3,11 +3,12 @@ import 'package:cinta_film/common/constants.dart';
 import 'package:cinta_film/common/utils.dart';
 import 'package:cinta_film/domain/entities/tvls/tvls.dart';
 import 'package:cinta_film/domain/entities/tvls/tvls_detail.dart';
-import 'package:cinta_film/presentasi/provider/tvls/tvls_detail_notifier.dart';
-import 'package:cinta_film/common/state_enum.dart';
+import 'package:cinta_film/presentasi/bloc/serial_tv_rekomendasi_bloc/tvseries_recommendations_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/serial_tv_daftar_tonton_bloc/watchlist_tvseries_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/serial_tv_detail_bloc/tvseries_detail_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:provider/provider.dart';
 
 class TvlsDetailPage extends StatefulWidget {
   static const ROUTE_NAME = '/detail-tv';
@@ -24,39 +25,62 @@ class _TvDetailPageState extends State<TvlsDetailPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<TvlsDetailNotifier>(context, listen: false)
-          .fetchTvDetail(widget.id);
-      Provider.of<TvlsDetailNotifier>(context, listen: false)
-          .loadwatchlistStatusTv(widget.id);
+      context.read<TvseriesDetailBloc>()
+             .add(TvseriesDetailGetEvent(widget.id));
+      context.read<TvseriesRecommendationsBloc>()
+             .add(TvseriesRecommendationsGetEvent(widget.id));
+      context.read<WatchlistTvseriesBloc>()
+             .add(WatchlistTvseriesGetStatusEvent(widget.id));
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    TvseriesRecommendationsState tvseriesRecommendations = context.watch<TvseriesRecommendationsBloc>().state;
     return Scaffold(
-      body: Consumer<TvlsDetailNotifier>(
-        builder: (context, provider, child) {
-          switch (provider.tvState) {
-            case RequestState.Loading:
+      body : BlocListener<WatchlistTvseriesBloc, WatchlistTvseriesState>(
+        listener: (_, state) {
+          if (state is WatchlistTvseriesSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.message),
+            ));
+            context
+                .read<WatchlistTvseriesBloc>()
+                .add(WatchlistTvseriesGetStatusEvent(widget.id));
+          }
+        },
+      child:  BlocBuilder<TvseriesDetailBloc, TvseriesDetailState>(
+          builder: (context, state) {
+            if (state is TvseriesDetailLoading) {
                return Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(20),
                       child: CircularProgressIndicator(),
                     );
-            case RequestState.Loaded:
-              final tv = provider.tv;
+              } else if (state is TvseriesDetailLoaded) {
+              final tv = state.tvSeriesDetail;
+              bool isAddedToWatchlist = (context
+                      .watch<WatchlistTvseriesBloc>()
+                      .state is WatchlistTvseriesStatusLoaded)
+                  ? (context.read<WatchlistTvseriesBloc>().state
+                          as WatchlistTvseriesStatusLoaded)
+                      .result
+                  : false;
               return SafeArea(
                 child: DetailContent(
                   tv,
-                  provider.tvRecommendations,
-                  provider.isAddedTowatchlistTv,
+                   tvseriesRecommendations is TvseriesRecommendationsLoaded
+                      ? tvseriesRecommendations.tvSeries
+                      : List.empty(),
+                  isAddedToWatchlist,
                 ),
               );
-            default:
-              return Text(provider.message);
+            } else {
+              return Text("No Data Available");
           }
         },
       ),
+    )
     );
   }
 }
@@ -114,35 +138,13 @@ class DetailContent extends StatelessWidget {
                             ElevatedButton(
                               onPressed: () async {
                                 if (!isAddedwatchlistTv) {
-                                  await Provider.of<TvlsDetailNotifier>(context,
-                                          listen: false)
-                                      .addwatchlistTv(tv);
+                                  BlocProvider.of<WatchlistTvseriesBloc>(
+                                      context)
+                                    ..add(WatchlistTvseriesTambahItemEvent(tv));
                                 } else {
-                                  await Provider.of<TvlsDetailNotifier>(context,
-                                          listen: false)
-                                      .removeFromwatchlistTv(tv);
-                                }
-
-                                final message = Provider.of<TvlsDetailNotifier>(
-                                        context,
-                                        listen: false)
-                                    .watchlistMessageTv;
-
-                                if (message ==
-                                        TvlsDetailNotifier
-                                            .watchlistAddSuccessMessage ||
-                                    message ==
-                                        TvlsDetailNotifier
-                                            .watchlistRemoveSuccessMessage) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(message)));
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                            content: Text(message));
-                                      });
+                                  BlocProvider.of<WatchlistTvseriesBloc>(
+                                      context)
+                                    ..add(WatchlistTvseriesHapusItemEvent(tv));
                                 }
                               },
                               child: Row(
@@ -189,19 +191,21 @@ class DetailContent extends StatelessWidget {
                               'Rekomendasi Serial TV',
                               style: kHeading6,
                             ),
-                            Consumer<TvlsDetailNotifier>(
-                              builder: (context, data, child) {
-                                switch (data.recommendationTvState) {
-                                  case RequestState.Loading:
+                            BlocBuilder<TvseriesRecommendationsBloc, TvseriesRecommendationsState>(
+                              builder: (context, state) {
+                                if (state is TvseriesRecommendationsLoading) {
                                     return Container(
                                       alignment: Alignment.center,
                                       padding: const EdgeInsets.all(20),
                                       child: CircularProgressIndicator(),
                                     );
-                                  case RequestState.Error:
-                                    return Text(data.message);
-                                  case RequestState.Loaded:
-                                    return Container(
+                                 } else if (state is TvseriesRecommendationsLoaded) {
+                                  final recommendations = state.tvSeries;
+
+                                  if (recommendations.isEmpty) {
+                                    return const Text("Rekomendasi TV tidak Tersedia");
+                                  }
+                                  return Container(
                                       height: 150,
                                       child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
@@ -241,8 +245,8 @@ class DetailContent extends StatelessWidget {
                                         itemCount: recommendations.length,
                                       ),
                                     );
-                                  default:
-                                    return Container();
+                                  } else {
+                                  return Container();
                                 }
                               },
                             ),

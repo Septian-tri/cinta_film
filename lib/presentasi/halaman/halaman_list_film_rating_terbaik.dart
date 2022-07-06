@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:cinta_film/common/state_enum.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cinta_film/presentasi/widgets/movie_card_list.dart';
 import 'package:cinta_film/presentasi/bloc/film_rating_terbaik_bloc/movie_top_rated_bloc.dart';

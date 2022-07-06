@@ -3,10 +3,10 @@ import 'package:cinta_film/domain/entities/movie_detail.dart';
 import 'package:cinta_film/domain/repositories/movie_repository.dart';
 import 'package:cinta_film/common/failure.dart';
 
-class GetMovieDetail {
+class AmbilDataDetailFilm {
   final RepositoryFilm repository;
 
-  GetMovieDetail(this.repository);
+  AmbilDataDetailFilm(this.repository);
 
   Future<Either<Failure, MovieDetail>> execute(int id) {
     return repository.getMovieDetail(id);

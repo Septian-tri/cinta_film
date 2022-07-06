@@ -28,7 +28,7 @@ import 'package:cinta_film/presentasi/bloc/film_daftar_tonton_bloc/movie_watchli
   MovieLocalDataSource,
   DatabaseHelper,
   ClassDaftarTontonFilm,
-  GetMovieDetail,
+  AmbilDataDetailFilm,
   ClassFilmRatingTerbaik,
   AmbilDataRekomendasiFilm,
   ClassFilmTerPopuler,
@@ -42,8 +42,8 @@ import 'package:cinta_film/presentasi/bloc/film_daftar_tonton_bloc/movie_watchli
   MovieRecommendationBloc,
   MovieTopRatedBloc,
   MovieSearchBloc,
-  MovieDetailBloc,
-  MovieWatchlistBloc
+  DetailFilmBloc,
+  DaftarTontonFilmBloc
 ], customMocks: [
   MockSpec<http.Client>(as: #MockHttpClient)
 ])

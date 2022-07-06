@@ -5,13 +5,13 @@ import 'package:bloc/bloc.dart';
 part 'movie_detail_state.dart';
 part 'movie_detail_event.dart';
 
-class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
-  final GetMovieDetail getMovieDetail;
+class DetailFilmBloc extends Bloc<EventDetailFilm, StateDetailFilm> {
+  final AmbilDataDetailFilm getMovieDetail;
 
-  MovieDetailBloc({
+  DetailFilmBloc({
     required this.getMovieDetail,
-  }) : super(MovieDetailEmpty()) {
-    on<GetMovieDetailEvent>((event, emit) async {
+  }) : super(DataDetailFilmKosong()) {
+    on<GetEventDetailFilm>((event, emit) async {
       emit(MovieDetailLoading());
 
       final result = await getMovieDetail.execute(event.id);
