@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 // ignore: must_be_immutable
 class Film extends Equatable {
+  
   Film({
     required this.adult,
     required this.backdropPath,

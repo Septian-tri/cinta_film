@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/film_pencarian_bloc/movie_search_bloc.dart';
-import 'package:cinta_film/presentasi/widgets/movie_card_list.dart';
+import 'package:cinta_film/presentasi/bloc/film_bloc.dart';
+import 'package:cinta_film/presentasi/widgets/card_list.dart';
 import 'package:flutter/material.dart';
 
 
@@ -48,7 +48,7 @@ class SearchPage extends StatelessWidget {
                         padding: const EdgeInsets.all(8),
                         itemBuilder: (context, index) {
                           final film = data.result[index];
-                          return MovieCard(film);
+                          return CardList.film(film, 'widgetFilm');
                         },
                         itemCount: result.length,
                       ),

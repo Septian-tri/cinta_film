@@ -1,4 +1,4 @@
-import 'package:cinta_film/common/exception.dart';
+import 'package:cinta_film/data/lib_server_fail.dart';
 import 'package:cinta_film/data/datasources/tvls/tvls_local_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

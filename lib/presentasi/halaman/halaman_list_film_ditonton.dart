@@ -1,7 +1,7 @@
-import 'package:cinta_film/common/utils.dart';
+import 'package:cinta_film/presentasi/halaman/template_detail_halaman.dart';
+import 'package:cinta_film/presentasi/widgets/card_list.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cinta_film/presentasi/widgets/movie_card_list.dart';
-import 'package:cinta_film/presentasi/bloc/film_daftar_tonton_bloc/movie_watchlist_bloc.dart';
+import 'package:cinta_film/presentasi/bloc/film_bloc.dart';
 import 'package:flutter/material.dart';
 
 class ClassHalamanDaftarTontonFilm extends StatefulWidget {
@@ -52,7 +52,7 @@ class _ClassHalamanDaftarTontonFilmState
                 return ListView.builder(
                   itemBuilder: (context, index) {
                     final film = data.result[index];
-                    return MovieCard(film);
+                    return CardList.film(film, 'widgetFilm');
                   },
                   itemCount: data.result.length,
                 );

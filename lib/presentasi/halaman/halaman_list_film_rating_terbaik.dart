@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cinta_film/presentasi/widgets/movie_card_list.dart';
-import 'package:cinta_film/presentasi/bloc/film_rating_terbaik_bloc/movie_top_rated_bloc.dart';
+import 'package:cinta_film/presentasi/widgets/card_list.dart';
+import 'package:cinta_film/presentasi/bloc/film_bloc.dart';
 import 'package:flutter/material.dart';
 
 class TopRatedMoviesPage extends StatefulWidget {
@@ -38,8 +38,8 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
             } else if (state is MovieTopRatedLoaded){
                 return ListView.builder(
                   itemBuilder: (context, index) {
-                    final filmData = state.result[index];
-                    return MovieCard(filmData);
+                    final film = state.result[index];
+                    return CardList.film(film, 'widgetFilm');
                   },
                   itemCount: state.result.length,
                 );

@@ -1,5 +1,5 @@
 import 'package:cinta_film/data/models/genre_model.dart';
-import 'package:cinta_film/domain/entities/tvls/tvls_detail.dart';
+import 'package:cinta_film/domain/entities/tvls/tvls.dart';
 import 'package:equatable/equatable.dart';
 
 class TvlsDetailResponse extends Equatable {

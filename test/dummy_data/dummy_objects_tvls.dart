@@ -1,7 +1,6 @@
 import 'package:cinta_film/data/models/tvls/tvls_table.dart';
 import 'package:cinta_film/domain/entities/aliranFilm.dart';
 import 'package:cinta_film/domain/entities/tvls/tvls.dart';
-import 'package:cinta_film/domain/entities/tvls/tvls_detail.dart';
 
 final testTv = Tvls(
     backdropPath: '/suopoADq0k8YZr4dQXcU6pToj6s.jpg',

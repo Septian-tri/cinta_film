@@ -1,5 +1,5 @@
-import 'package:cinta_film/common/exception.dart';
-import 'package:cinta_film/data/datasources/db/database_helper_tvls.dart';
+import 'package:cinta_film/data/lib_server_fail.dart';
+import 'package:cinta_film/data/lib_database.dart';
 import 'package:cinta_film/data/models/tvls/tvls_table.dart';
 
 abstract class TvlsLocalDataSource {

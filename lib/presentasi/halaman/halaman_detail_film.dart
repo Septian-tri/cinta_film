@@ -1,10 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cinta_film/presentasi/bloc/film_daftar_tonton_bloc/movie_watchlist_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/film_detail_bloc/movie_detail_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/film_rekomendasi_bloc/movie_recommendation_bloc.dart';
-import 'package:cinta_film/common/constants.dart';
+import 'package:cinta_film/presentasi/bloc/film_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cinta_film/common/utils.dart';
+import 'package:cinta_film/presentasi/halaman/template_tema.dart';
+import 'package:cinta_film/presentasi/halaman/template_detail_halaman.dart';
 import 'package:cinta_film/domain/entities/film.dart';
 import 'package:cinta_film/domain/entities/movie_detail.dart';
 import 'package:flutter/material.dart';

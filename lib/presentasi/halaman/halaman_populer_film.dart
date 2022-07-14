@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cinta_film/presentasi/widgets/movie_card_list.dart';
-import 'package:cinta_film/presentasi/bloc/film_terpopuler_bloc/movie_popular_bloc.dart';
+import 'package:cinta_film/presentasi/widgets/card_list.dart';
+import 'package:cinta_film/presentasi/bloc/film_bloc.dart';
 import 'package:flutter/material.dart';
 
 class PopularMoviesPage extends StatefulWidget {
@@ -38,8 +38,8 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
               }else if(state is MoviePopularLoaded){
                 return ListView.builder(
                   itemBuilder: (context, index) {
-                    final filmData = state.result[index];
-                    return MovieCard(filmData);
+                    final film = state.result[index];
+                    return CardList.film(film, 'widgetFilm');
                   },
                   itemCount: state.result.length,
                 );

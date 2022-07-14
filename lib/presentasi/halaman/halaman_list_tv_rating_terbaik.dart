@@ -1,5 +1,5 @@
-import 'package:cinta_film/presentasi/bloc/serial_tv_rating_terbaik_bloc/top_rated_tvseries_bloc.dart';
-import 'package:cinta_film/presentasi/widgets/tvls_card_list.dart';
+import 'package:cinta_film/presentasi/bloc/tv_bloc.dart';
+import 'package:cinta_film/presentasi/widgets/card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,8 +38,8 @@ class _TopRatedTvPageState extends State<HalamanSerialTvTerbaik> {
                } else if (state is TopRatedTvseriesLoaded) {
                 return ListView.builder(
                   itemBuilder: (context, index) {
-                    final tvs = state.result[index];
-                    return TvlsCard(tvs);
+                    final tv = state.result[index];
+                    return CardList.tv(tv, 'widgetTv');
                   },
                   itemCount: state.result.length,
                 );

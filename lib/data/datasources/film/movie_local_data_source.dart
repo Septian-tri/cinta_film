@@ -1,5 +1,5 @@
-import 'package:cinta_film/common/exception.dart';
-import 'package:cinta_film/data/datasources/db/database_helper.dart';
+import 'package:cinta_film/data/lib_server_fail.dart';
+import 'package:cinta_film/data/lib_database.dart';
 import 'package:cinta_film/data/models/movie_table.dart';
 
 abstract class MovieLocalDataSource {

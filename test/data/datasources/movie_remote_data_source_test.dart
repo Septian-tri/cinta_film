@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:cinta_film/data/datasources/film/movie_remote_data_source.dart';
 import 'package:cinta_film/data/models/movie_detail_model.dart';
 import 'package:cinta_film/data/models/movie_response.dart';
-import 'package:cinta_film/common/exception.dart';
+import 'package:cinta_film/data/lib_server_fail.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
+
 import '../../json_reader.dart';
 import '../../helpers/test_helper.mocks.dart';
 

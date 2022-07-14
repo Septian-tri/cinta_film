@@ -1,7 +1,7 @@
-import 'package:cinta_film/common/utils.dart';
+import 'package:cinta_film/presentasi/halaman/template_detail_halaman.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cinta_film/presentasi/bloc/serial_tv_daftar_tonton_bloc/watchlist_tvseries_bloc.dart';
-import 'package:cinta_film/presentasi/widgets/tvls_card_list.dart';
+import 'package:cinta_film/presentasi/bloc/tv_bloc.dart';
+import 'package:cinta_film/presentasi/widgets/card_list.dart';
 import 'package:flutter/material.dart';
 
 class ClassHalamanListSerialTv extends StatefulWidget {
@@ -51,7 +51,7 @@ class _WatchlistTvPageState extends State<ClassHalamanListSerialTv>
                 return ListView.builder(
                   itemBuilder: (context, index) {
                     final tv = data.result[index];
-                    return TvlsCard(tv);
+                    return CardList.tv(tv, 'widgetTv');
                   },
                   itemCount: data.result.length,
                 );

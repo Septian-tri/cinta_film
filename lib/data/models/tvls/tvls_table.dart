@@ -1,5 +1,4 @@
 import 'package:cinta_film/domain/entities/tvls/tvls.dart';
-import 'package:cinta_film/domain/entities/tvls/tvls_detail.dart';
 import 'package:equatable/equatable.dart';
 
 class TvlsTable extends Equatable {

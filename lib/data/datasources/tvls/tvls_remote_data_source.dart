@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:cinta_film/data/models/tvls/tvls_detail_model.dart';
 import 'package:cinta_film/data/models/tvls/tvls_model.dart';
 import 'package:cinta_film/data/models/tvls/tvls_response.dart';
-import 'package:cinta_film/common/exception.dart';
+import 'package:cinta_film/data/lib_server_fail.dart';
 import 'package:http/http.dart' as http;
 
 abstract class TvlsRemoteDataSource {

@@ -2,8 +2,12 @@ import 'dart:convert';
 import 'package:cinta_film/data/models/movie_detail_model.dart';
 import 'package:cinta_film/data/models/movie_model.dart';
 import 'package:cinta_film/data/models/movie_response.dart';
-import 'package:cinta_film/common/exception.dart';
+import 'package:cinta_film/data/lib_server_fail.dart';
+import 'package:cinta_film/data/sumber_apis_data.dart';
 import 'package:http/http.dart' as http;
+
+
+
 
 abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> filmTayangSaatIni();
@@ -15,8 +19,7 @@ abstract class MovieRemoteDataSource {
 }
 
 class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
-  static const API_KEY = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
-  static const BASE_URL = 'https://api.themoviedb.org/3';
+
 
   final http.Client client;
 

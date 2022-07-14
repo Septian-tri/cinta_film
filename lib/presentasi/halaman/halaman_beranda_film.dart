@@ -1,6 +1,7 @@
+import 'package:cinta_film/presentasi/bloc/film_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinta_film/presentasi/halaman/drawer_kiri.dart';
-import 'package:cinta_film/common/constants.dart';
+import 'package:cinta_film/data/sumber_apis_data.dart';
 import 'package:cinta_film/domain/entities/film.dart';
 import 'package:cinta_film/presentasi/halaman/halaman_detail_film.dart';
 import 'package:cinta_film/presentasi/halaman/halaman_populer_film.dart';
@@ -8,10 +9,6 @@ import 'package:cinta_film/presentasi/halaman/halaman_pencarian_film.dart';
 import 'package:cinta_film/presentasi/halaman/halaman_list_film_rating_terbaik.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import "package:cinta_film/presentasi/bloc/film_saat_ini_tayang_bloc/movie_now_playing_bloc.dart";
-import "package:cinta_film/presentasi/bloc/film_terpopuler_bloc/movie_popular_bloc.dart";
-import "package:cinta_film/presentasi/bloc/film_rating_terbaik_bloc/movie_top_rated_bloc.dart";
 import "package:flutter_bloc/src/bloc_builder.dart";
 
 class HomeMoviePage extends StatefulWidget {
